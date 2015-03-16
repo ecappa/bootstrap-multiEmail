@@ -66,6 +66,7 @@ if (typeof jQuery === 'undefined') { throw new Error('MultiEmail\'s JavaScript r
 	            })
 	            this.container().on('keyup', 'input', function(event) {
 	                if (this.flagCopyPast) {
+	                	self.input().val(self.input().val().replace(/(\r\n|\n|\r|[ ])/g,","));
 	                    self.addPending();
 	                    this.flagCopyPast = false;
 	                }
