@@ -43,6 +43,8 @@ if (typeof jQuery === 'undefined') { throw new Error('MultiEmail\'s JavaScript r
 
 		invalidItems : [],
 
+                flagCopyPast: false,
+
 		build : function() {
 			var self = this;
 			this.$element.on('itemAdded', function(event) {
@@ -58,6 +60,18 @@ if (typeof jQuery === 'undefined') { throw new Error('MultiEmail\'s JavaScript r
 					self.$element.blur();
 				}
 			});
+
+	            this.container().on('paste', 'input', function(event) {
+	                this.flagCopyPast = true;
+	            })
+	            this.container().on('keyup', 'input', function(event) {
+	                if (this.flagCopyPast) {
+	                    self.addPending();
+	                    this.flagCopyPast = false;
+	                }
+	
+	            })
+
 
 			this.container().on('keydown', 'input', function(event) {
 				if (event.which == 9) {
